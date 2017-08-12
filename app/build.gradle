@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.assignment.zolostays"
         minSdkVersion 19
@@ -17,6 +18,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+    }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -25,5 +32,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'com.google.dagger:dagger-android:2.11'
+    compile 'com.google.dagger:dagger-android-support:2.11'
+    compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
 }
