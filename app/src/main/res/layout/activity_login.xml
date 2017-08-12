@@ -1,135 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:fitsSystemWindows="true"
-    tools:context="com.assignment.zolostays.view.LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
+
+        <variable
+            name="loginViewModel"
+            type="com.assignment.zolostays.viewmodel.LoginViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        tools:context="com.assignment.zolostays.view.LoginActivity">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_login" />
-
-            <!-- Dummy view to prevent the edit text from taking focus when activity starts -->
-            <LinearLayout
-                android:id="@+id/lnr_dummy"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
-                android:focusable="true"
-                android:focusableInTouchMode="true"/>
-
+            android:layout_height="match_parent"
+            android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:orientation="vertical"
-                android:padding="@dimen/_30dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_login" />
+
+                <!-- Dummy view to prevent the edit text from taking focus when activity starts -->
+                <LinearLayout
+                    android:id="@+id/lnr_dummy"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_30dp"
+                    android:paddingStart="@dimen/_30dp"
+                    android:paddingEnd="@dimen/_30dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/_10dp"
-                        android:src="@drawable/ic_phone" />
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/txt_input_layout_phone"
-                        style="@style/TextInputLayoutYellow"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_phone_number">
+                        android:orientation="horizontal">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/edt_phone"
-                            style="@style/EditTextWhite"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/_10dp"
+                            android:src="@drawable/ic_phone" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/txt_input_layout_phone"
+                            style="@style/TextInputLayoutYellow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="phone"
-                            android:maxLength="10" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
+                            android:hint="@string/hint_phone_number"
+                            app:errorTextAppearance="@style/ErrorText">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10dp"
-                    android:orientation="horizontal">
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/edt_phone"
+                                style="@style/EditTextWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:text="@={loginViewModel.phoneNumber}"/>
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="@dimen/_10dp"
-                        android:src="@drawable/ic_key" />
-
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/txt_input_layout_password"
-                        style="@style/TextInputLayoutYellow"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_password"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@android:color/white">
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:orientation="horizontal">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/edt_password"
-                            style="@style/EditTextWhite"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginEnd="@dimen/_10dp"
+                            android:src="@drawable/ic_key" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/txt_input_layout_password"
+                            style="@style/TextInputLayoutYellow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:maxLength="10" />
-                    </android.support.design.widget.TextInputLayout>
+                            android:hint="@string/hint_password"
+                            app:errorTextAppearance="@style/ErrorText"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@android:color/white">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/edt_password"
+                                style="@style/EditTextWhite"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:maxLength="10"
+                                android:text="@={loginViewModel.password}"/>
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_login"
+                        style="@style/YellowButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_30dp"
+                        android:enabled="@{loginViewModel.loginEnabled}"
+                        android:onClick="@{loginViewModel::onClickLogin}"
+                        android:text="@string/btn_login" />
+
+                    <TextView
+                        android:id="@+id/txt_forgot_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/txt_forgot_password"
+                        android:textColor="@android:color/white" />
+
+                    <Button
+                        android:id="@+id/btn_create_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_30dp"
+                        android:background="@drawable/bg_blue_btn"
+                        android:text="@string/btn_create_account"
+                        android:textColor="@android:color/white" />
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/btn_login"
-                    style="@style/YellowButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30dp"
-                    android:text="@string/btn_login" />
-
-                <TextView
-                    android:id="@+id/txt_forgot_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/txt_forgot_password"
-                    android:textColor="@android:color/white" />
-
-                <Button
-                    android:id="@+id/btn_create_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30dp"
-                    android:background="@drawable/bg_blue_btn"
-                    android:text="@string/btn_create_account"
-                    android:textColor="@android:color/white" />
             </LinearLayout>
-        </LinearLayout>
 
-    </ScrollView>
+        </ScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

@@ -9,4 +9,10 @@
 
     <string name="btn_login">Log in</string>
     <string name="btn_create_account">Create Account</string>
+
+    <string name="error_invalid_phone_number">Please enter a valid phone number</string>
+    <string name="error_invalid_password">Please enter a valid password</string>
+    <string name="error_invalid_credentials">Invalid credentials. Please try again!</string>
+
+    <item name="observable_data" type="id"/>
 </resources>
