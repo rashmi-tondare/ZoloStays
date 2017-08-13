@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity implements OnInputErrorList
     private static final String TAG = LoginActivity.class.getSimpleName();
 
     private TextInputLayout txtInputLayoutPhone, txtInputLayoutPassword;
-    //TODO: maintain state on orientation change
+
     @Inject
     LoginViewModel loginViewModel;
 

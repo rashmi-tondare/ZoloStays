@@ -38,4 +38,17 @@
         <item name="android:textColor">@drawable/txt_yellow_btn</item>
     </style>
 
+    <style name="TransparentButton">
+        <item name="android:background">@drawable/bg_transparent_btn</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="WhiteTextView">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="WhiteTextView.26sp">
+        <item name="android:textSize">@dimen/font_26sp</item>
+    </style>
+
 </resources>

@@ -1,6 +1,7 @@
 package com.assignment.zolostays.application;
 
 import com.assignment.zolostays.view.LoginActivity;
+import com.assignment.zolostays.view.RegistrationActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -13,4 +14,7 @@ import dagger.android.ContributesAndroidInjector;
 public abstract class ZoloStaysApplicationModule {
     @ContributesAndroidInjector
     abstract LoginActivity contributeLoginActivityGenerator();
+
+    @ContributesAndroidInjector
+    abstract RegistrationActivity contributeRegistrationActivityGenerator();
 }

@@ -4,13 +4,18 @@ package com.assignment.zolostays.viewmodel;
 import javax.inject.Inject;
 
 import com.assignment.zolostays.BR;
+import com.assignment.zolostays.R;
 import com.assignment.zolostays.constants.AppConstants;
-import com.assignment.zolostays.listener.OnInputErrorListener;
+import com.assignment.zolostays.model.User;
+import com.assignment.zolostays.utils.ActivityUtils;
+import com.assignment.zolostays.utils.PasswordUtils;
+import com.assignment.zolostays.view.RegistrationActivity;
 
-import android.databinding.BaseObservable;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,17 +27,12 @@ import dagger.Module;
  */
 
 @Module
-public class LoginViewModel extends BaseObservable {
-    private static final String TAG = LoginViewModel.class.getSimpleName();
+public class LoginViewModel extends BaseViewModel {
     public static final int PHONE_NUMBER_INPUT = 1;
     public static final int PASSWORD_INPUT = 2;
-    public static final int INVALID_CREDENTIALS = 3;
 
     private String phoneNumber, password;
     public ObservableBoolean loginEnabled;
-
-    @Nullable
-    private OnInputErrorListener onInputErrorListener;
 
     @Inject
     public LoginViewModel() {
@@ -63,16 +63,9 @@ public class LoginViewModel extends BaseObservable {
         updateLoginButtonStatus();
     }
 
-    public void addInputErrorListener(OnInputErrorListener onInputErrorListener) {
-        this.onInputErrorListener = onInputErrorListener;
-    }
-
-    public void removeInputErrorListener() {
-        this.onInputErrorListener = null;
-    }
-
     public void onClickLogin(View view) {
-        if (!phoneNumber.matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
+        ActivityUtils.hideKeyboard((Activity) view.getContext());
+        if (!phoneNumber.trim().matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
             if (onInputErrorListener != null) {
                 onInputErrorListener.onInputError(PHONE_NUMBER_INPUT);
             }
@@ -88,8 +81,20 @@ public class LoginViewModel extends BaseObservable {
 
         if (onInputErrorListener != null) {
             onInputErrorListener.clearInputErrors();
-            Snackbar.make(view.getRootView(), "YAY!", Snackbar.LENGTH_LONG).show();
         }
+        User user = dbHelper.getUserByPhoneNumber(phoneNumber);
+        if (user != null && PasswordUtils.checkIfEqual(user.getPassword(), password)) {
+            Snackbar.make(view.getRootView(), R.string.snackbar_logged_in, Snackbar.LENGTH_SHORT).show();
+        }
+        else {
+            Snackbar.make(view.getRootView(), R.string.error_invalid_credentials, Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void onClickCreateAccount(View view) {
+        Context context = view.getContext();
+        Intent intent = new Intent(context, RegistrationActivity.class);
+        context.startActivity(intent);
     }
 
     private void updateLoginButtonStatus() {

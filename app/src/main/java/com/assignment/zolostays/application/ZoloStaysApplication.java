@@ -2,6 +2,10 @@ package com.assignment.zolostays.application;
 
 import javax.inject.Inject;
 
+import com.assignment.zolostays.BuildConfig;
+import com.assignment.zolostays.database.ZoloStaysDbHelper;
+import com.facebook.stetho.Stetho;
+
 import android.app.Activity;
 import android.app.Application;
 
@@ -21,7 +25,16 @@ public class ZoloStaysApplication extends Application implements HasActivityInje
     @Override
     public void onCreate() {
         super.onCreate();
-        DaggerZoloStaysApplicationComponent.create().inject(this);
+        DaggerZoloStaysApplicationComponent.builder()
+                .applicationModule(new ZoloStaysAppProviderModule(this))
+                .build()
+                .inject(this);
+
+        ZoloStaysDbHelper.init(this);
+
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+        }
     }
 
 
