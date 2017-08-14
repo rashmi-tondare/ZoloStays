@@ -13,10 +13,12 @@ import com.assignment.zolostays.view.SplashActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -98,12 +100,29 @@ public class ProfileViewModel extends BaseViewModel {
     }
 
     public void onLogoutClicked(View view) {
-        sharedPrefs.resetSharedPrefs();
+        final Context context = view.getContext();
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.dialog_title_are_you_sure)
+                .setMessage(R.string.dialog_msg_logout)
+                .setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
 
-        Context context = view.getContext();
-        Intent intent = new Intent(context, SplashActivity.class);
-        context.startActivity(intent);
-        ((Activity) context).finish();
+                        sharedPrefs.resetSharedPrefs();
+
+                        Intent intent = new Intent(context, SplashActivity.class);
+                        context.startActivity(intent);
+                        ((Activity) context).finish();
+                    }
+                })
+                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
     }
 
     public void onUpdateClicked(View view) {

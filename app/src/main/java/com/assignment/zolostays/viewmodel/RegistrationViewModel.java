@@ -156,7 +156,7 @@ public class RegistrationViewModel extends BaseViewModel {
             user.setPassword(PasswordUtils.generateHash(password));
 
             if (dbHelper.insertUser(user) > 0) {
-                Toast.makeText(context, R.string.snackbar_user_registered, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.toast_user_registered, Toast.LENGTH_LONG).show();
                 onLoginClicked(view);
             }
         }

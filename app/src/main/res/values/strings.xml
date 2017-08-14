@@ -21,6 +21,8 @@
     <string name="btn_reset_password">Reset Password</string>
     <string name="btn_logout">Log out</string>
     <string name="btn_update">Update</string>
+    <string name="btn_ok">Ok</string>
+    <string name="btn_cancel">Cancel</string>
 
     <string name="error_invalid_phone_number">Please enter a valid phone number</string>
     <string name="error_invalid_password">Please enter a valid password</string>
@@ -31,10 +33,14 @@
     <string name="error_user_exists">User already exists! Please try logging in</string>
 
     <string name="snackbar_logged_in">Logged in!</string>
-    <string name="snackbar_user_registered">Registration successful! Login to continue</string>
     <string name="snackbar_password_reset">You will receive an email with instructions shortly</string>
     <string name="snackbar_details_updated">Details updated!</string>
     <string name="snackbar_user_exists">A user with the same phone number already exists!</string>
 
+    <string name="toast_user_registered">Registration successful! Login to continue</string>
     <string name="toast_register_first">Please register first</string>
+
+    <string name="dialog_title_are_you_sure">Are you sure?</string>
+    <string name="dialog_msg_logout">Are you sure you want to logout?</string>
+
 </resources>
