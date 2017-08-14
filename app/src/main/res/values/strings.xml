@@ -33,6 +33,7 @@
     <string name="txt_profile">Profile</string>
     <string name="txt_update_profile">Update your profile details</string>
     <string name="btn_update">Update</string>
+    <string name="txt_zolo_stays">ZOLO\nStays</string>
 
     <item name="observable_data" type="id" />
 </resources>

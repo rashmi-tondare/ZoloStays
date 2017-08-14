@@ -9,6 +9,7 @@ import com.assignment.zolostays.constants.AppConstants;
 import com.assignment.zolostays.model.User;
 import com.assignment.zolostays.utils.ActivityUtils;
 import com.assignment.zolostays.utils.PasswordUtils;
+import com.assignment.zolostays.utils.SharedPrefs;
 import com.assignment.zolostays.view.ForgotPasswordActivity;
 import com.assignment.zolostays.view.ProfileActivity;
 import com.assignment.zolostays.view.RegistrationActivity;
@@ -34,6 +35,7 @@ public class LoginViewModel extends BaseViewModel {
     public static final int PASSWORD_INPUT = 2;
 
     private String phoneNumber, password;
+    private SharedPrefs sharedPrefs;
     public ObservableBoolean loginEnabled;
 
     @Inject
@@ -41,6 +43,8 @@ public class LoginViewModel extends BaseViewModel {
         phoneNumber = "";
         password = "";
         loginEnabled = new ObservableBoolean(false);
+
+        sharedPrefs = SharedPrefs.getInstance();
     }
 
     @Bindable
@@ -94,6 +98,9 @@ public class LoginViewModel extends BaseViewModel {
         }
         User user = dbHelper.getUserByPhoneNumber(phoneNumber);
         if (user != null && PasswordUtils.checkIfEqual(user.getPassword(), password)) {
+            sharedPrefs.add(AppConstants.SHARED_PREFS_IS_LOGGED_IN, true);
+            sharedPrefs.add(AppConstants.SHARED_PREFS_PHONE_NUMBER, phoneNumber);
+
             Intent intent = new Intent(context, ProfileActivity.class);
             intent.putExtra(AppConstants.INTENT_PHONE_NUMBER, phoneNumber);
             context.startActivity(intent);

@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import com.assignment.zolostays.BuildConfig;
 import com.assignment.zolostays.database.ZoloStaysDbHelper;
+import com.assignment.zolostays.utils.SharedPrefs;
 import com.facebook.stetho.Stetho;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ public class ZoloStaysApplication extends Application implements HasActivityInje
                 .inject(this);
 
         ZoloStaysDbHelper.init(this);
+        SharedPrefs.init(this);
 
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this);
