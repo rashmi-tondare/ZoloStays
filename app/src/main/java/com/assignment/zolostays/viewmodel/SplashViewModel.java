@@ -34,9 +34,7 @@ public class SplashViewModel extends BaseObservable {
 
         final Intent intent;
         if (isLoggedIn) {
-            String phoneNumber = sharedPrefs.get(AppConstants.SHARED_PREFS_PHONE_NUMBER, "");
             intent = new Intent(currentActivity, ProfileActivity.class);
-            intent.putExtra(AppConstants.INTENT_PHONE_NUMBER, phoneNumber);
         }
         else {
             intent = new Intent(currentActivity, LoginActivity.class);

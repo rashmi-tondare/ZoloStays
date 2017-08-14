@@ -99,10 +99,9 @@ public class LoginViewModel extends BaseViewModel {
         User user = dbHelper.getUserByPhoneNumber(phoneNumber);
         if (user != null && PasswordUtils.checkIfEqual(user.getPassword(), password)) {
             sharedPrefs.add(AppConstants.SHARED_PREFS_IS_LOGGED_IN, true);
-            sharedPrefs.add(AppConstants.SHARED_PREFS_PHONE_NUMBER, phoneNumber);
+            sharedPrefs.add(AppConstants.SHARED_PREFS_USER_ID, user.getId());
 
             Intent intent = new Intent(context, ProfileActivity.class);
-            intent.putExtra(AppConstants.INTENT_PHONE_NUMBER, phoneNumber);
             context.startActivity(intent);
             ((Activity) context).finish();
         }

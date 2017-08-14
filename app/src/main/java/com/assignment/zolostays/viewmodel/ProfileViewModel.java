@@ -1,12 +1,23 @@
+
 package com.assignment.zolostays.viewmodel;
 
 import javax.inject.Inject;
 
 import com.android.databinding.library.baseAdapters.BR;
+import com.assignment.zolostays.R;
+import com.assignment.zolostays.constants.AppConstants;
 import com.assignment.zolostays.model.User;
+import com.assignment.zolostays.utils.ActivityUtils;
+import com.assignment.zolostays.utils.SharedPrefs;
+import com.assignment.zolostays.view.SplashActivity;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
+import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.View;
 
 import dagger.Module;
@@ -18,16 +29,21 @@ import dagger.Module;
 @Module
 public class ProfileViewModel extends BaseViewModel {
 
-    private String phoneNumber, email, name;
+    public static final int PHONE_NUMBER_INPUT = 1;
+    public static final int EMAIL_INPUT = 2;
+    public static final int NAME_INPUT = 3;
+
+    private User user;
     public ObservableBoolean updateEnabled;
+    private SharedPrefs sharedPrefs;
+    private String phoneNumber, email, name;
 
     @Inject
     public ProfileViewModel() {
-        phoneNumber = "";
-        email = "";
-        name = "";
+        user = new User();
 
-        updateEnabled = new ObservableBoolean(false);
+        updateEnabled = new ObservableBoolean(true);
+        sharedPrefs = SharedPrefs.getInstance();
     }
 
     @Bindable
@@ -36,8 +52,9 @@ public class ProfileViewModel extends BaseViewModel {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.phoneNumber = phoneNumber.trim();
         notifyPropertyChanged(BR.phoneNumber);
+        updateButtonStatus();
     }
 
     @Bindable
@@ -46,8 +63,9 @@ public class ProfileViewModel extends BaseViewModel {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.trim();
         notifyPropertyChanged(BR.email);
+        updateButtonStatus();
     }
 
     @Bindable
@@ -56,22 +74,81 @@ public class ProfileViewModel extends BaseViewModel {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
+        notifyPropertyChanged(BR.name);
+        updateButtonStatus();
+    }
+
+    private void updateButtonStatus() {
+        updateEnabled.set(!(TextUtils.isEmpty(phoneNumber)
+                            || TextUtils.isEmpty(email)
+                            || TextUtils.isEmpty(name)));
+        updateEnabled.notifyChange();
+    }
+
+    public void displayUserDetails() {
+        long id = sharedPrefs.get(AppConstants.SHARED_PREFS_USER_ID, 0L);
+        this.user = dbHelper.getUserById(id);
+        this.phoneNumber = user.getPhoneNumber();
+        this.email = user.getEmailId();
+        this.name = user.getName();
+        notifyPropertyChanged(BR.phoneNumber);
+        notifyPropertyChanged(BR.email);
         notifyPropertyChanged(BR.name);
     }
 
-    public void displayUserDetails(String phoneNumber) {
-        User user = dbHelper.getUserByPhoneNumber(phoneNumber);
-        setPhoneNumber(user.getPhoneNumber());
-        setEmail(user.getEmailId());
-        setName(user.getName());
-    }
-
     public void onLogoutClicked(View view) {
+        sharedPrefs.resetSharedPrefs();
 
+        Context context = view.getContext();
+        Intent intent = new Intent(context, SplashActivity.class);
+        context.startActivity(intent);
+        ((Activity) context).finish();
     }
 
     public void onUpdateClicked(View view) {
+        Context context = view.getContext();
 
+        if (!phoneNumber.matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
+            if (onInputErrorListener != null) {
+                onInputErrorListener.onInputError(PHONE_NUMBER_INPUT);
+            }
+            return;
+        }
+
+        if (!email.matches(AppConstants.EMAIL_VALIDATION_PATTERN)) {
+            if (onInputErrorListener != null) {
+                onInputErrorListener.onInputError(EMAIL_INPUT);
+            }
+            return;
+        }
+
+        if (!name.matches(AppConstants.FULLNAME_VALIDATION_PATTERN)) {
+            if (onInputErrorListener != null) {
+                onInputErrorListener.onInputError(NAME_INPUT);
+            }
+            return;
+        }
+
+        if (onInputErrorListener != null) {
+            onInputErrorListener.clearInputErrors();
+        }
+
+        if (!user.getPhoneNumber().equals(phoneNumber)) {
+            User temp = dbHelper.getUserByPhoneNumber(phoneNumber);
+            if (temp != null) {
+                Snackbar.make(view.getRootView(), R.string.snackbar_user_exists, Snackbar.LENGTH_LONG).show();
+                return;
+            }
+        }
+
+        ActivityUtils.hideKeyboard((Activity) context);
+        user.setPhoneNumber(phoneNumber);
+        user.setEmailId(email);
+        user.setName(name);
+        dbHelper.updateUser(user);
+        displayUserDetails();
+
+        Snackbar.make(view.getRootView(), R.string.snackbar_details_updated, Snackbar.LENGTH_LONG).show();
     }
 }

@@ -64,7 +64,6 @@ public class ForgotPasswordViewModel extends BaseViewModel {
 
     public void onResetPasswordClicked(View view) {
         Context context = view.getContext();
-        ActivityUtils.hideKeyboard((Activity) context);
 
         phoneNumber = phoneNumber.trim();
         if (!phoneNumber.matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
@@ -73,6 +72,8 @@ public class ForgotPasswordViewModel extends BaseViewModel {
             }
             return;
         }
+
+        ActivityUtils.hideKeyboard((Activity) context);
 
         if (dbHelper.getUserByPhoneNumber(phoneNumber) == null) {
             if (onInputErrorListener != null) {

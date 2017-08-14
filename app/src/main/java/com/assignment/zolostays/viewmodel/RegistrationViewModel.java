@@ -107,7 +107,6 @@ public class RegistrationViewModel extends BaseViewModel {
 
     public void onRegisterClicked(View view) {
         Context context = view.getContext();
-        ActivityUtils.hideKeyboard((Activity) context);
 
         phoneNumber = phoneNumber.trim();
         if (!phoneNumber.matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
@@ -139,6 +138,8 @@ public class RegistrationViewModel extends BaseViewModel {
             }
             return;
         }
+
+        ActivityUtils.hideKeyboard((Activity) context);
 
         if (onInputErrorListener != null) {
             onInputErrorListener.clearInputErrors();

@@ -18,5 +18,5 @@ public final class AppConstants {
     public static final String INTENT_PHONE_NUMBER = "phone_number";
 
     public static final String SHARED_PREFS_IS_LOGGED_IN = "is_logged_in";
-    public static final String SHARED_PREFS_PHONE_NUMBER = "phone_number";
+    public static final String SHARED_PREFS_USER_ID = "user_id";
 }

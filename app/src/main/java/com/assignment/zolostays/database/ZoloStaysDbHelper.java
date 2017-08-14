@@ -1,3 +1,4 @@
+
 package com.assignment.zolostays.database;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class ZoloStaysDbHelper {
     private final DaoSession mDaoSession;
     private static ZoloStaysDbHelper zoloStaysDbHelper;
 
-//    @Inject
+    //    @Inject
     private ZoloStaysDbHelper(Context context) {
         DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(context, AppConstants.DATABASE_NAME);
         mDaoSession = new DaoMaster(devOpenHelper.getWritableDb()).newSession();
@@ -48,7 +49,19 @@ public class ZoloStaysDbHelper {
         return users.isEmpty() ? null : users.get(0);
     }
 
+    public User getUserById(Long id) {
+        List<User> users = mDaoSession.getUserDao().queryBuilder()
+                .where(UserDao.Properties.Id.eq(id))
+                .list();
+
+        return users.isEmpty() ? null : users.get(0);
+    }
+
     public Long insertUser(User user) {
         return mDaoSession.getUserDao().insert(user);
+    }
+
+    public void updateUser(User user) {
+        mDaoSession.getUserDao().update(user);
     }
 }

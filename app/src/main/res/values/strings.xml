@@ -34,6 +34,8 @@
     <string name="txt_update_profile">Update your profile details</string>
     <string name="btn_update">Update</string>
     <string name="txt_zolo_stays">ZOLO\nStays</string>
+    <string name="snackbar_details_updated">Details updated!</string>
+    <string name="snackbar_user_exists">A user with the same phone number already exists!</string>
 
     <item name="observable_data" type="id" />
 </resources>
