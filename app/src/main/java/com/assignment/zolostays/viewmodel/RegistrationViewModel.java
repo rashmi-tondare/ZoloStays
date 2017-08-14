@@ -19,6 +19,7 @@ import android.databinding.ObservableBoolean;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import dagger.Module;
 
@@ -155,7 +156,8 @@ public class RegistrationViewModel extends BaseViewModel {
             user.setPassword(PasswordUtils.generateHash(password));
 
             if (dbHelper.insertUser(user) > 0) {
-                Snackbar.make(view.getRootView(), R.string.snackbar_user_registered, Snackbar.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.snackbar_user_registered, Toast.LENGTH_LONG).show();
+                onLoginClicked(view);
             }
         }
     }
