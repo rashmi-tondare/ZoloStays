@@ -9,6 +9,7 @@ import com.assignment.zolostays.constants.AppConstants;
 import com.assignment.zolostays.model.User;
 import com.assignment.zolostays.utils.ActivityUtils;
 import com.assignment.zolostays.utils.PasswordUtils;
+import com.assignment.zolostays.view.ForgotPasswordActivity;
 import com.assignment.zolostays.view.RegistrationActivity;
 
 import android.app.Activity;
@@ -63,9 +64,15 @@ public class LoginViewModel extends BaseViewModel {
         updateLoginButtonStatus();
     }
 
-    public void onClickLogin(View view) {
+    private void updateLoginButtonStatus() {
+        loginEnabled.set(!(TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(password)));
+        loginEnabled.notifyChange();
+    }
+
+    public void onLoginClicked(View view) {
         ActivityUtils.hideKeyboard((Activity) view.getContext());
-        if (!phoneNumber.trim().matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
+        phoneNumber = phoneNumber.trim();
+        if (!phoneNumber.matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
             if (onInputErrorListener != null) {
                 onInputErrorListener.onInputError(PHONE_NUMBER_INPUT);
             }
@@ -91,14 +98,15 @@ public class LoginViewModel extends BaseViewModel {
         }
     }
 
-    public void onClickCreateAccount(View view) {
+    public void onCreateAccountClicked(View view) {
         Context context = view.getContext();
         Intent intent = new Intent(context, RegistrationActivity.class);
         context.startActivity(intent);
     }
 
-    private void updateLoginButtonStatus() {
-        loginEnabled.set(!(TextUtils.isEmpty(phoneNumber) || TextUtils.isEmpty(password)));
-        loginEnabled.notifyChange();
+    public void onForgotPasswordClicked(View view) {
+        Context context = view.getContext();
+        Intent intent = new Intent(context, ForgotPasswordActivity.class);
+        context.startActivity(intent);
     }
 }

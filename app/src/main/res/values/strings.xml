@@ -24,6 +24,11 @@
 
     <string name="snackbar_logged_in">Logged in!</string>
     <string name="snackbar_user_registered">Registration successful! Login to continue</string>
+    <string name="txt_forgot_password_title">Forgot Password?</string>
+    <string name="txt_enter_registered_phone_number">Please enter your registered phone number</string>
+    <string name="btn_reset_password">Reset Password</string>
+    <string name="toast_register_first">Please register first</string>
+    <string name="snackbar_password_reset">You will receive an email with instructions shortly</string>
 
     <item name="observable_data" type="id" />
 </resources>

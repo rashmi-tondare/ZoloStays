@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_30dp"
                     android:enabled="@{loginViewModel.loginEnabled}"
-                    android:onClick="@{loginViewModel::onClickLogin}"
+                    android:onClick="@{loginViewModel::onLoginClicked}"
                     android:text="@string/btn_login" />
 
                 <TextView
@@ -125,6 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20dp"
                     android:gravity="center_horizontal"
+                    android:onClick="@{loginViewModel::onForgotPasswordClicked}"
                     android:text="@string/txt_forgot_password" />
 
                 <Button
@@ -133,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_30dp"
                     android:background="@drawable/bg_blue_btn"
-                    android:onClick="@{loginViewModel::onClickCreateAccount}"
+                    android:onClick="@{loginViewModel::onCreateAccountClicked}"
                     android:text="@string/btn_create_account"
                     android:textColor="@android:color/white" />
             </LinearLayout>

@@ -12,4 +12,6 @@ public final class AppConstants {
     public static final int MINIMUM_PASSWORD_LENGTH = 5;
 
     public static final String DATABASE_NAME = "zolostays-db";
+
+    public static final String INTENT_PHONE_NUMBER = "phone_number";
 }

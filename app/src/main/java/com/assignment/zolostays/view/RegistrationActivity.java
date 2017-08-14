@@ -10,6 +10,7 @@ import com.assignment.zolostays.listener.OnInputErrorListener;
 import com.assignment.zolostays.utils.ActivityUtils;
 import com.assignment.zolostays.viewmodel.RegistrationViewModel;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -36,6 +37,12 @@ public class RegistrationActivity extends AppCompatActivity implements OnInputEr
         binding.setRegistrationViewModel(registrationViewModel);
 
         ActivityUtils.hideKeyboard(this);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String phoneNumber = intent.getStringExtra(AppConstants.INTENT_PHONE_NUMBER);
+            registrationViewModel.setPhoneNumber(phoneNumber);
+        }
 
         txtInputLayoutPhone = (TextInputLayout) findViewById(R.id.txt_input_layout_phone);
         txtInputLayoutEmail = (TextInputLayout) findViewById(R.id.txt_input_layout_email);

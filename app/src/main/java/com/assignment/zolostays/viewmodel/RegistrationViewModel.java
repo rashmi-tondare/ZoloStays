@@ -7,9 +7,12 @@ import com.android.databinding.library.baseAdapters.BR;
 import com.assignment.zolostays.R;
 import com.assignment.zolostays.constants.AppConstants;
 import com.assignment.zolostays.model.User;
+import com.assignment.zolostays.utils.ActivityUtils;
 import com.assignment.zolostays.utils.PasswordUtils;
 import com.assignment.zolostays.view.LoginActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
@@ -103,21 +106,27 @@ public class RegistrationViewModel extends BaseViewModel {
     }
 
     public void onRegisterClicked(View view) {
-        if (!phoneNumber.trim().matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
+        Context context = view.getContext();
+        ActivityUtils.hideKeyboard((Activity) context);
+
+        phoneNumber = phoneNumber.trim();
+        if (!phoneNumber.matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
             if (onInputErrorListener != null) {
                 onInputErrorListener.onInputError(PHONE_NUMBER_INPUT);
             }
             return;
         }
 
-        if (!email.trim().matches(AppConstants.EMAIL_VALIDATION_PATTERN)) {
+        email = email.trim();
+        if (!email.matches(AppConstants.EMAIL_VALIDATION_PATTERN)) {
             if (onInputErrorListener != null) {
                 onInputErrorListener.onInputError(EMAIL_INPUT);
             }
             return;
         }
 
-        if (!name.trim().matches(AppConstants.FULLNAME_VALIDATION_PATTERN)) {
+        name = name.trim();
+        if (!name.matches(AppConstants.FULLNAME_VALIDATION_PATTERN)) {
             if (onInputErrorListener != null) {
                 onInputErrorListener.onInputError(NAME_INPUT);
             }
@@ -133,19 +142,19 @@ public class RegistrationViewModel extends BaseViewModel {
 
         if (onInputErrorListener != null) {
             onInputErrorListener.clearInputErrors();
-            if (dbHelper.getUserByPhoneNumber(phoneNumber) != null) {
-                Snackbar.make(view.getRootView(), R.string.error_user_exists, Snackbar.LENGTH_SHORT).show();
-            }
-            else {
-                User user = new User();
-                user.setPhoneNumber(phoneNumber);
-                user.setEmailId(email);
-                user.setName(name);
-                user.setPassword(PasswordUtils.generateHash(password));
+        }
+        if (dbHelper.getUserByPhoneNumber(phoneNumber) != null) {
+            Snackbar.make(view.getRootView(), R.string.error_user_exists, Snackbar.LENGTH_SHORT).show();
+        }
+        else {
+            User user = new User();
+            user.setPhoneNumber(phoneNumber);
+            user.setEmailId(email);
+            user.setName(name);
+            user.setPassword(PasswordUtils.generateHash(password));
 
-                if (dbHelper.insertUser(user) > 0) {
-                    Snackbar.make(view.getRootView(), R.string.snackbar_user_registered, Snackbar.LENGTH_LONG).show();
-                }
+            if (dbHelper.insertUser(user) > 0) {
+                Snackbar.make(view.getRootView(), R.string.snackbar_user_registered, Snackbar.LENGTH_LONG).show();
             }
         }
     }

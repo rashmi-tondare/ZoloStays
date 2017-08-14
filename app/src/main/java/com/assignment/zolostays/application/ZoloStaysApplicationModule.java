@@ -1,5 +1,6 @@
 package com.assignment.zolostays.application;
 
+import com.assignment.zolostays.view.ForgotPasswordActivity;
 import com.assignment.zolostays.view.LoginActivity;
 import com.assignment.zolostays.view.RegistrationActivity;
 
@@ -17,4 +18,7 @@ public abstract class ZoloStaysApplicationModule {
 
     @ContributesAndroidInjector
     abstract RegistrationActivity contributeRegistrationActivityGenerator();
+
+    @ContributesAndroidInjector
+    abstract ForgotPasswordActivity contributeForgotPasswordActivityGenerator();
 }
