@@ -4,11 +4,12 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_10dp">10dp</dimen>
-    <dimen name="_30dp">30dp</dimen>
-    <dimen name="_20dp">20dp</dimen>
     <dimen name="_16dp">16dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_30dp">30dp</dimen>
+    <dimen name="_220dp">220dp</dimen>
+
     <dimen name="font_20sp">20sp</dimen>
     <dimen name="font_26sp">26sp</dimen>
-    <dimen name="_220dp">220dp</dimen>
     <dimen name="font_40sp">40sp</dimen>
 </resources>
