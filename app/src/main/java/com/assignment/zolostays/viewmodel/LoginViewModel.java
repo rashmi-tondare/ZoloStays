@@ -10,6 +10,7 @@ import com.assignment.zolostays.model.User;
 import com.assignment.zolostays.utils.ActivityUtils;
 import com.assignment.zolostays.utils.PasswordUtils;
 import com.assignment.zolostays.view.ForgotPasswordActivity;
+import com.assignment.zolostays.view.ProfileActivity;
 import com.assignment.zolostays.view.RegistrationActivity;
 
 import android.app.Activity;
@@ -70,7 +71,9 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public void onLoginClicked(View view) {
-        ActivityUtils.hideKeyboard((Activity) view.getContext());
+        Context context = view.getContext();
+        ActivityUtils.hideKeyboard((Activity) context);
+
         phoneNumber = phoneNumber.trim();
         if (!phoneNumber.matches(AppConstants.MOBILE_NUMBER_VALIDATION_PATTERN)) {
             if (onInputErrorListener != null) {
@@ -91,7 +94,10 @@ public class LoginViewModel extends BaseViewModel {
         }
         User user = dbHelper.getUserByPhoneNumber(phoneNumber);
         if (user != null && PasswordUtils.checkIfEqual(user.getPassword(), password)) {
-            Snackbar.make(view.getRootView(), R.string.snackbar_logged_in, Snackbar.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, ProfileActivity.class);
+            intent.putExtra(AppConstants.INTENT_PHONE_NUMBER, phoneNumber);
+            context.startActivity(intent);
+            ((Activity) context).finish();
         }
         else {
             Snackbar.make(view.getRootView(), R.string.error_invalid_credentials, Snackbar.LENGTH_LONG).show();

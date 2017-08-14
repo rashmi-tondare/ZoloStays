@@ -2,46 +2,57 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.assignment.zolostays.view.LoginActivity">
+    tools:context="com.assignment.zolostays.view.ProfileActivity">
 
     <data>
 
         <variable
-            name="loginViewModel"
-            type="com.assignment.zolostays.viewmodel.LoginViewModel" />
+            name="profileViewModel"
+            type="com.assignment.zolostays.viewmodel.ProfileViewModel" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:fillViewport="true">
+        android:background="@color/colorPrimary">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_220dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/img_login" />
+            <Button
+                style="@style/TransparentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/_16dp"
+                android:onClick="@{profileViewModel::onLogoutClicked}"
+                android:text="@string/btn_logout" />
 
-            <!-- Dummy view to prevent the edit text from taking focus when activity starts -->
-            <LinearLayout
-                android:id="@+id/lnr_dummy"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="horizontal" />
+            <TextView
+                style="@style/WhiteTextView.26sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/txt_profile"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                style="@style/WhiteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20dp"
+                android:gravity="center_horizontal"
+                android:text="@string/txt_update_profile" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/_30dp">
+                android:layout_margin="@dimen/_30dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -70,7 +81,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="phone"
                             android:maxLength="10"
-                            android:text="@={loginViewModel.phoneNumber}" />
+                            android:text="@={profileViewModel.phoneNumber}" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
@@ -85,59 +96,67 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="@dimen/_10dp"
-                        android:src="@drawable/ic_key" />
+                        android:src="@drawable/ic_email" />
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/txt_input_layout_password"
+                        android:id="@+id/txt_input_layout_email"
                         style="@style/TextInputLayoutYellow"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/hint_password"
-                        app:errorTextAppearance="@style/ErrorText"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@android:color/white">
+                        android:hint="@string/hint_email"
+                        app:errorTextAppearance="@style/ErrorText">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/edt_password"
+                            android:id="@+id/edt_email"
                             style="@style/EditTextWhite"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:maxLength="10"
-                            android:text="@={loginViewModel.password}" />
+                            android:inputType="textEmailAddress"
+                            android:text="@={profileViewModel.email}" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="@dimen/_10dp"
+                        android:src="@drawable/ic_text" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/txt_input_layout_name"
+                        style="@style/TextInputLayoutYellow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/hint_full_name"
+                        app:errorTextAppearance="@style/ErrorText">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/edt_name"
+                            style="@style/EditTextWhite"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapWords"
+                            android:text="@={profileViewModel.name}" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_login"
                     style="@style/YellowButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_30dp"
-                    android:enabled="@{loginViewModel.loginEnabled}"
-                    android:onClick="@{loginViewModel::onLoginClicked}"
-                    android:text="@string/btn_login" />
-
-                <TextView
-                    android:id="@+id/txt_forgot_password"
-                    style="@style/WhiteTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:gravity="center_horizontal"
-                    android:onClick="@{loginViewModel::onForgotPasswordClicked}"
-                    android:text="@string/txt_forgot_password" />
-
-                <Button
-                    android:id="@+id/btn_create_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30dp"
-                    android:background="@drawable/bg_blue_btn"
-                    android:onClick="@{loginViewModel::onCreateAccountClicked}"
-                    android:text="@string/btn_create_account"
-                    android:textColor="@android:color/white" />
+                    android:enabled="@{profileViewModel.updateEnabled}"
+                    android:onClick="@{profileViewModel::onUpdateClicked}"
+                    android:text="@string/btn_update" />
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </layout>

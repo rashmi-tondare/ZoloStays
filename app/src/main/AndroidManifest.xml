@@ -31,6 +31,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
+        <activity
+            android:name=".view.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateVisible|adjustResize" />
     </application>
 
 </manifest>

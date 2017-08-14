@@ -29,6 +29,10 @@
     <string name="btn_reset_password">Reset Password</string>
     <string name="toast_register_first">Please register first</string>
     <string name="snackbar_password_reset">You will receive an email with instructions shortly</string>
+    <string name="btn_logout">Log out</string>
+    <string name="txt_profile">Profile</string>
+    <string name="txt_update_profile">Update your profile details</string>
+    <string name="btn_update">Update</string>
 
     <item name="observable_data" type="id" />
 </resources>
